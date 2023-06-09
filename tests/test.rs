@@ -16,6 +16,8 @@ fn it_works() {
     let iter = TailServerUrl::new_openstreetmap(8).deg_box(50.75, 3.2, 53.7, 7.22);
 
     assert_eq!((4, 4), iter.size());
+    assert_eq!(130, iter.origin_x());
+    assert_eq!(82, iter.origin_y());
 
     println!("{:?}", iter);
     for i in iter {

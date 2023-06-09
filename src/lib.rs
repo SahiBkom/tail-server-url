@@ -85,6 +85,16 @@ impl TailServerUrlIter {
     pub fn size(&self) -> (u64, u64) {
         (self.x1 - self.x0 + 1, self.y0 - self.y1 + 1)
     }
+
+    /// The origin x tail at the left top
+    pub fn origin_x(&self) -> u64 {
+        self.x0
+    }
+
+    /// The origin y tail at the left top
+    pub fn origin_y(&self) -> u64 {
+        self.y1
+    }
 }
 
 impl Iterator for TailServerUrlIter {
@@ -137,15 +147,5 @@ impl TailServerUrlIterData {
     /// The y tail
     pub fn y(&self) -> u32 {
         self.y
-    }
-
-    /// The origin x tail at the left top
-    pub fn origin_x(&self) -> u64 {
-        self.x0
-    }
-
-    /// The origin y tail at the left top
-    pub fn origin_y(&self) -> u64 {
-        self.y1
     }
 }
