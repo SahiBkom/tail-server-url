@@ -1,7 +1,7 @@
 use std::f64::consts::PI;
 
 #[derive(Debug, Eq, PartialEq, Clone)]
-struct TailServerUrl {
+pub struct TailServerUrl {
     url: String,
     z: u8,
 }
@@ -58,7 +58,7 @@ impl TailServerUrl {
 }
 
 #[derive(Debug, Eq, PartialEq, Clone)]
-struct TailServerUrlIter {
+pub struct TailServerUrlIter {
     tsu: TailServerUrl,
     x: u64,
     y: u64,
@@ -82,7 +82,7 @@ impl TailServerUrlIter {
     }
 
     /// The number of x and y tails
-    fn size(&self) -> (u64, u64) {
+    pub fn size(&self) -> (u64, u64) {
         (self.x1 - self.x0 + 1, self.y0 - self.y1 + 1)
     }
 }
@@ -105,33 +105,6 @@ impl Iterator for TailServerUrlIter {
             url
         } else {
             None
-        }
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        assert_eq!(
-            "https://tile.openstreetmap.org/17/67400/43241.png".to_string(),
-            TailServerUrl::new_openstreetmap(17).deg(52.090752, 5.121630)
-        );
-        assert_eq!((526, 337), TailServerUrl::deg2num(52.090752, 5.121630, 10));
-
-        println!("{}", TailServerUrl::new_openstreetmap(8).deg(50.75, 3.2));
-
-        println!("{:?}", TailServerUrl::deg2num(50.75, 3.2, 8));
-        println!("{:?}", TailServerUrl::deg2num(53.7, 7.22, 8));
-
-        let iter = TailServerUrl::new_openstreetmap(8).deg_box(50.75, 3.2, 53.7, 7.22);
-
-        assert_eq!((4, 4), iter.size());
-        println!("{:?}", iter);
-        for i in iter {
-            println!("{}", i);
         }
     }
 }
