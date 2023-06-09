@@ -85,6 +85,16 @@ impl TailServerUrlIter {
     pub fn size(&self) -> (u64, u64) {
         (self.x1 - self.x0 + 1, self.y0 - self.y1 + 1)
     }
+
+    /// The y tail position
+    pub fn x(&self) -> u64 {
+        self.x0 - self.x
+    }
+
+    /// The x tail position
+    pub fn y(&self) -> u64 {
+        self.y1 - self.y
+    }
 }
 
 impl Iterator for TailServerUrlIter {
