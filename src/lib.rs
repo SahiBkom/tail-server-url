@@ -129,11 +129,23 @@ impl TailServerUrlIterData {
         &self.url
     }
 
+    /// The x tail
     pub fn x(&self) -> u32 {
         self.x
     }
 
+    /// The y tail
     pub fn y(&self) -> u32 {
         self.y
+    }
+
+    /// The origin x tail at the left top
+    pub fn origin_x(&self) -> u64 {
+        self.x0
+    }
+
+    /// The origin y tail at the left top
+    pub fn origin_y(&self) -> u64 {
+        self.y1
     }
 }
