@@ -85,23 +85,17 @@ impl TailServerUrlIter {
     pub fn size(&self) -> (u64, u64) {
         (self.x1 - self.x0 + 1, self.y0 - self.y1 + 1)
     }
-
-    /// The y tail position
-    pub fn x(&self) -> u64 {
-        self.x0 - self.x
-    }
-
-    /// The x tail position
-    pub fn y(&self) -> u64 {
-        self.y1 - self.y
-    }
 }
 
 impl Iterator for TailServerUrlIter {
-    type Item = String;
+    type Item = TailServerUrlIterData;
 
     fn next(&mut self) -> Option<Self::Item> {
-        let url = Some(self.tsu.url(self.x, self.y));
+        let url = Some(TailServerUrlIterData::new(
+            self.tsu.url(self.x, self.y),
+            (self.x - self.x0) as u32,
+            (self.y - self.y1) as u32,
+        ));
         if self.x < self.x1 {
             self.x += 1;
             url
@@ -116,5 +110,30 @@ impl Iterator for TailServerUrlIter {
         } else {
             None
         }
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Clone)]
+pub struct TailServerUrlIterData {
+    url: String,
+    x: u32,
+    y: u32,
+}
+
+impl TailServerUrlIterData {
+    fn new(url: String, x: u32, y: u32) -> Self {
+        Self { url, x, y }
+    }
+
+    pub fn url(&self) -> &str {
+        &self.url
+    }
+
+    pub fn x(&self) -> u32 {
+        self.x
+    }
+
+    pub fn y(&self) -> u32 {
+        self.y
     }
 }
